@@ -142,3 +142,18 @@ for (let numero of numeros) {
 
 console.log('Quantidade de números positivos: ' + positivos);
 console.log('Quantidade de números negativos: ' + negativos);
+
+// Exercício 8
+
+let senhaCorreta = 1234;
+let senha;
+
+do {
+    senha = parseInt(prompt('Digite a senha:'));
+
+    if (senha === senhaCorreta) {
+        alert('Acesso liberado');
+    } else {
+        alert('Senha incorreta. Tente novamente');
+    }
+} while (senha !== senhaCorreta);
