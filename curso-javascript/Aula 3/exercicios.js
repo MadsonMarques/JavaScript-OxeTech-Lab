@@ -156,4 +156,4 @@ do {
     } else {
         alert('Senha incorreta. Tente novamente');
     }
-} while (senha !== senhaCorreta);
+} while (senha !== senhaCorreta)
