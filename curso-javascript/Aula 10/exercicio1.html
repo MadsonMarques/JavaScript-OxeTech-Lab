@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Seção de Comentários</title>
+    <style>
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background-color: #f9f9f9;
+        padding: 40px;
+        text-align: center;
+      }
+
+      .container {
+        background: white;
+        max-width: 500px;
+        margin: auto;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        margin-top: 10px;
+        box-sizing: border-box;
+        resize: none;
+      }
+
+      button {
+        margin-top: 10px;
+        padding: 10px 20px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #218838;
+      }
+
+      .comentario {
+        background-color: #f1f1f1;
+        padding: 12px;
+        border-radius: 5px;
+        margin-top: 15px;
+        text-align: left;
+        position: relative;
+      }
+
+      .comentario strong {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      .autor {
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 4px;
+        font-size: 16px;
+      }
+
+      .texto-comentario {
+        font-size: 15px;
+        color: #444;
+        margin-bottom: 6px;
+        line-height: 1.4;
+      }
+
+      .data {
+        font-size: 13px;
+        color: #777;
+        margin-bottom: 8px;
+      }
+
+      .remover {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        background: #dc3545;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 5px 8px;
+        cursor: pointer;
+      }
+
+      .remover:hover {
+        background-color: #bd2130;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Deixe seu comentário</h2>
+      <input type="text" id="inputNome" placeholder="Digite seu nome" />
+      <textarea
+        id="inputComentario"
+        rows="4"
+        placeholder="Digite seu comentário..."
+      ></textarea>
+      <br />
+      <button id="btn-adicionar-comentario">Publicar</button>
+
+      <div id="secaoComentarios"></div>
+    </div>
+
+    <script>
+       document.getElementById('btn-adicionar-comentario').onclick = function() {
+  
+        var nome = document.getElementById('inputNome').value;
+        var comentario = document.getElementById('inputComentario').value;
+
+        if (nome === '' || comentario === '') {
+           alert('Preencha os dois campos para comentar.');
+           return;
+        }
+
+        var novoComentario = document.createElement('div');
+        novoComentario.className = 'comentario';
+
+        var autor = document.createElement('h3');
+        autor.className = 'autor';
+        autor.textContent = nome;
+
+        var texto = document.createElement('p');
+        texto.className = 'texto-comentario';
+        texto.textContent = comentario;
+
+        const data = new Date();
+        const dataFormatada = data.toLocaleString('pt-BR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+        });
+
+        var dataComentario = document.createElement('p');
+        dataComentario.className = 'data';
+        dataComentario.textContent = 'Comentado em: ' + dataFormatada;
+
+        var botaoRemover = document.createElement('button');
+        botaoRemover.className = 'remover';
+        botaoRemover.textContent = 'Remover';
+        botaoRemover.onclick = function() {
+        novoComentario.remove();
+        }
+
+        novoComentario.appendChild(autor);
+        novoComentario.appendChild(texto);
+        novoComentario.appendChild(dataComentario);
+        novoComentario.appendChild(botaoRemover);
+
+        document.getElementById('secaoComentarios').appendChild(novoComentario);
+
+        document.getElementById('inputNome').value = '';
+        document.getElementById('inputComentario').value = '';
+      }
+    </script>
+  </body>
+</html>

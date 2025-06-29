@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Gerenciador de Contatos</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f5f5f5;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .formulario {
+      margin-bottom: 30px;
+    }
+
+    input {
+      padding: 10px;
+      margin: 5px;
+      width: 200px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #lista-contatos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .contato {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      width: 200px;
+      text-align: center;
+    }
+
+    .contato img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+
+    .contato h3 {
+      margin: 5px 0;
+      font-size: 18px;
+    }
+
+    .contato p {
+      margin: 5px 0;
+      color: #333;
+    }
+
+    .contato button {
+      margin-top: 10px;
+      background-color: crimson;
+    }
+
+    .contato button:hover {
+      background-color: darkred;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Gerenciador de Contatos</h1>
+
+  <div class="formulario">
+    <input type="text" id="nome" placeholder="Nome">
+    <input type="text" id="numero" placeholder="Número">
+    <input type="text" id="foto" placeholder="URL da Foto (opcional)">
+    <button id="btn-adicionar">Adicionar Contato</button>
+  </div>
+
+  <div id="lista-contatos"></div>
+
+  <script>
+    document.getElementById('btn-adicionar').onclick = function() {
+      var nomeDigitado = document.getElementById('nome').value;
+      var numeroDigitado = document.getElementById('numero').value;
+      var urlFoto = document.getElementById('foto').value;
+
+      if (nomeDigitado === '' || numeroDigitado === '') {
+        alert('Preencha o nome e o número para adicionar um contato.');
+        return;
+      }
+
+      var novoContato = document.createElement('div');
+      novoContato.className = 'contato';
+
+      var imagem = document.createElement('img');
+      imagem.src = urlFoto;
+      imagem.alt = 'Foto do contato';
+
+      var nomeElemento = document.createElement('h3');
+      nomeElemento.textContent = nomeDigitado;
+
+      var numeroElemento = document.createElement('p');
+      numeroElemento.textContent = numeroDigitado;
+
+      var botao = document.createElement('button');
+      botao.textContent = 'Remover';
+      botao.className = 'remover';
+      botao.onclick = function() {
+      novoContato.remove();
+      }
+
+      novoContato.appendChild(imagem);
+      novoContato.appendChild(nomeElemento);
+      novoContato.appendChild(numeroElemento);
+      novoContato.appendChild(botao);
+
+      var lista = document.getElementById('lista-contatos');
+      lista.appendChild(novoContato);
+
+      document.getElementById('nome').value = '';
+      document.getElementById('numero').value = '';
+      document.getElementById('foto').value = '';
+    }
+  </script>
+</body>
+</html>
