@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Meus Filmes Favoritos</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f5f5f5;
+      padding: 30px;
+      text-align: center;
+    }
+
+    input {
+      padding: 10px;
+      margin: 5px;
+      width: 250px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #2ecc71;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #27ae60;
+    }
+
+    .filme {
+      background-color: white;
+      margin: 10px auto;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      width: 300px;
+      text-align: left;
+      position: relative;
+    }
+
+    .filme h3 {
+      margin: 5px 0;
+    }
+
+    .filme small {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+    }
+
+    .remover {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #e74c3c;
+    }
+
+    .remover:hover {
+      background-color: #c0392b;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Cadastro de Filmes Favoritos</h2>
+
+  <input type="text" id="titulo" placeholder="Título do filme" />
+  <br />
+  <input type="text" id="genero" placeholder="Gênero" />
+  <br />
+  <input type="number" id="ano" placeholder="Ano de lançamento" />
+  <br />
+  <button id="btnAdicionar">Adicionar Filme</button>
+
+  <div id="listaFilmes"></div>
+
+  <script>
+    const inputTitulo = document.getElementById('titulo');
+    const inputGenero = document.getElementById('genero');
+    const inputAno = document.getElementById('ano');
+    const botaoAdicionar = document.getElementById('btnAdicionar');
+    const listaFilmes = document.getElementById('listaFilmes');
+
+    let filmes = localStorage.getItem('filmes');
+    if (filmes) {
+      filmes = JSON.parse(filmes);
+      } else {
+      filmes = [];
+      }
+
+    function mostrarFilmes() {
+      listaFilmes.innerHTML = '';
+
+      for (let i = 0; i < filmes.length; i++) {
+        const filme = filmes[i];
+
+        const div = document.createElement('div');
+        div.className = 'filme';
+
+        const titulo = document.createElement('h3');
+        titulo.textContent = filme.titulo;
+  
+        const generoAno = document.createElement('p');
+        generoAno.className = 'small';
+        generoAno.textContent = filme.genero + ' • ' + filme.ano;
+
+        const botaoRemover = document.createElement('button');
+        botaoRemover.className = 'remover';
+        botaoRemover.textContent = 'Remover';
+
+        botaoRemover.onclick = function() {
+          filmes.splice(i, 1); 
+          localStorage.setItem('filmes', JSON.stringify(filmes));
+          mostrarFilmes();
+        };
+
+        div.appendChild(titulo);
+        div.appendChild(generoAno);
+        div.appendChild(botaoRemover);
+
+        listaFilmes.appendChild(div);
+      }
+    } 
+
+      botaoAdicionar.onclick = function() {
+        const titulo = inputTitulo.value.trim();
+        const genero = inputGenero.value.trim();
+        const ano = inputAno.value.trim();
+
+      if (titulo === '' || genero === '' || ano === '') {
+        alert('Preencha todos os campos!');
+        return;
+      }
+
+      const filmeNovo = {
+        titulo: titulo,
+        genero: genero,
+        ano: ano
+      };
+
+      filmes.push(filmeNovo);
+      localStorage.setItem('filmes', JSON.stringify(filmes));
+
+      inputTitulo.value = '';
+      inputGenero.value = '';
+      inputAno.value = '';
+
+      mostrarFilmes();
+    };
+
+      mostrarFilmes();
+  </script>
+
+</body>
+</html>
