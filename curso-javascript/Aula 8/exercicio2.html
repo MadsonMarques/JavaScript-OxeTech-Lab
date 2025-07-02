@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Exercício: Filtro de Produtos Avançado</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f1f1f1;
+        padding: 40px;
+        text-align: center;
+      }
+
+      .container {
+        max-width: 500px;
+        margin: auto;
+        background: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      input {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin-top: 20px;
+        text-align: left;
+      }
+
+      li {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        transition: all 0.3s ease;
+      }
+
+      li.hidden {
+        display: none;
+      }
+
+      li.highlight {
+        background-color: #d2f8da;
+        border-left: 5px solid #4caf50;
+      }
+
+      #contador {
+        margin-top: 10px;
+        font-weight: bold;
+        color: #333;
+      }
+
+      #mensagem-erro {
+        display: none;
+        margin-top: 20px;
+        color: red;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Buscar Produtos</h2>
+      <input type="text" id="campoBusca" placeholder="Digite para buscar..." />
+
+      <p id="contador"></p>
+      <p id="mensagem-erro">Nenhum produto encontrado.</p>
+
+      <ul id="listaProdutos">
+        <li>Notebook</li>
+        <li>Smartphone</li>
+        <li>Fone de Ouvido</li>
+        <li>Carregador</li>
+        <li>Mouse</li>
+        <li>Teclado</li>
+        <li>Monitor</li>
+      </ul>
+    </div>
+       <script>
+          let campoBusca = document.getElementById("campoBusca");
+          let lista = document.querySelectorAll("#listaProdutos li");
+          let contador = document.getElementById("contador");
+          let mensagemErro = document.getElementById("mensagem-erro");
+
+          function filtrarProdutos() {
+            let textoDigitado = campoBusca.value.toLowerCase();
+            let totalEncontrado = 0;
+
+            for (let i = 0; i < lista.length; i++) {
+              let nomeProduto = lista[i].textContent.toLowerCase();
+
+              if (textoDigitado === '') {
+                lista[i].classList.remove('hidden', 'highlight');
+                contador.textContent = '';
+                mensagemErro.style.display = 'none';
+              } else if (nomeProduto.includes(textoDigitado)) {
+                lista[i].classList.remove('hidden');
+                lista[i].classList.add('highlight');
+                totalEncontrado++;
+              } else {
+                lista[i].classList.add('hidden');
+                lista[i].classList.remove('highlight');
+              }
+            }
+
+            if (textoDigitado !== '') {
+              if (totalEncontrado === 0) {
+                mensagemErro.style.display = 'block';
+                contador.textContent = '';
+              } else {
+                mensagemErro.style.display = 'none';
+                contador.textContent = totalEncontrado + ' produto(s) encontrado(s).';
+              }
+            }
+          }
+          campoBusca.addEventListener('keyup', filtrarProdutos);
+        </script>
+  </body>
+</html>

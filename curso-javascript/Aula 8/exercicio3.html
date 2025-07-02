@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Exercício: Cadastro de Produtos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f1f1f1;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    input, select, textarea {
+      margin-bottom: 15px;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 10px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #mensagemErro {
+      color: red;
+      margin-bottom: 10px;
+    }
+
+    .produto {
+      margin-top: 20px;
+      text-align: left;
+      background-color: #e3f2fd;
+      padding: 15px;
+      border-radius: 5px;
+    }
+
+    .produto + .produto {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Cadastro de Produtos</h2>
+
+    <form id="formProduto">
+      <input type="text" id="nome" placeholder="Nome do produto" required />
+      <input type="number" id="preco" placeholder="Preço (R$)" required />
+      <select id="categoria" required>
+        <option value="">Selecione a categoria</option>
+        <option>Eletrônicos</option>
+        <option>Livros</option>
+        <option>Roupas</option>
+        <option>Outros</option>
+      </select>
+      <textarea id="descricao" placeholder="Descrição do produto" rows="3"></textarea>
+      <div id="mensagemErro"></div>
+      <button type="submit">Cadastrar</button>
+    </form>
+
+    <div id="listaProdutos"></div>
+  </div>
+
+  <script>
+    let formulario = document.getElementById('formProduto');
+
+    formulario.addEventListener('submit', cadastrarProduto);
+
+    function cadastrarProduto(evento) {
+      evento.preventDefault();
+
+      let nome = document.getElementById('nome').value.trim();
+      let preco = parseFloat(document.getElementById('preco').value);
+      let categoria = document.getElementById('categoria').value;
+      let descricao = document.getElementById('descricao').value.trim();
+
+      let mensagemErro = document.getElementById('mensagemErro');
+      let lista = document.getElementById('listaProdutos');
+
+      mensagemErro.textContent = '';
+
+      if (nome.length < 3) {
+        mensagemErro.textContent = 'O nome deve ter pelo menos 3 caracteres.';
+        return;
+      }
+
+      if (isNaN(preco) || preco <= 0) {
+        mensagemErro.textContent = 'O preço deve ser um número positivo.';
+        return;
+      }
+
+      if (categoria === '') {
+        mensagemErro.textContent = 'Por favor, selecione uma categoria.';
+        return;
+      }
+
+      let novoProduto = document.createElement('div');
+      novoProduto.classList.add('produto');
+
+      if (descricao === '') {
+        descricao = 'Sem descrição';
+      }
+
+      let agora = new Date();
+      let dataHora = agora.toLocaleString('pt-BR');
+
+      novoProduto.innerHTML = `
+        <strong>${nome}</strong><br>
+        Preço: R$ ${preco.toFixed(2)}<br>
+        Categoria: ${categoria}<br>
+        Descrição: ${descricao}<br>
+        Cadastrado em: ${dataHora}`;
+
+      lista.appendChild(novoProduto);
+
+      formulario.reset();
+    }
+</script>
+</body>
+</html>
