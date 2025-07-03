@@ -6,9 +6,9 @@
 
 :root {
       --color-white: #fff;
-      --color-blue: #74B6F8;
-      --color-blue2: #368FE9;
-      --color-gray: #EEEEEE;
+      --color-gray: #5e5e5e;
+      --color-gray2: #777777;
+      --color-black: #000000;
     }
 
     body {
@@ -18,7 +18,7 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      background-color: var(--color-blue);
+      background-color: var(--color-white);
     }
 
     .content {
@@ -27,7 +27,7 @@
       align-items: center;
       justify-content: center;
       gap: 1rem;
-      background: rgba(0, 0, 0, 0.6);
+      background: var(--color-gray2);
       border-radius: 1rem;
       padding: 3rem 4rem;
       color: var(--color-white);
@@ -58,22 +58,22 @@
       padding: .8rem;
       width: 80%;
       font-size: 1rem;
-      background-color: var(--color-blue2);
+      background-color: var(--color-white);
       border: none;
       border-radius: 1rem;
-      color: var(--color-white);
+      color: var(--color-black);
       margin-top: 1rem;
       cursor: pointer;
       transition: .4s;
     }
 
     .content button:hover {
-      background-color: var(--color-blue);
+      background-color: var(--color-gray);
     }
 
     .contato {
       width: 100%;
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: var(--color-gray2);
       padding: 1rem;
       border-radius: 1rem;
       margin-top: 1rem;
@@ -98,9 +98,10 @@
     }
 
     .edit {
-      background-color: #368FE9;
-    }
+      background-color: var(--color-white);
+      color: var(--color-black);
+      }
 
     .remove {
-      background-color: crimson;
+      background-color: var(--color-white);
     }
