@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Buscar Usuário</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #e6f0ff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px;
+      color: #333;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    input {
+      padding: 10px;
+      width: 200px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #0052cc;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #003d99;
+    }
+
+    .resultado {
+      margin-top: 30px;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      width: 320px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-align: left;
+      display: none;
+    }
+
+    .erro {
+      margin-top: 20px;
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Buscar Usuário</h1>
+  <input type="number" id="userId" placeholder="Digite um ID (1 a 10)" min="1" max="10" />
+  <button id="buscarBtn">Buscar</button>
+
+  <div id="resultado" class="resultado"></div>
+  <div id="erro" class="erro"></div>
+
+  <script>
+    let botaoBuscar = document.getElementById('buscarBtn');
+    let campoId = document.getElementById('userId');
+    let resultado = document.getElementById('resultado');
+    let erro = document.getElementById('erro');
+
+    botaoBuscar.addEventListener('click', buscarUsuario);
+
+    async function buscarUsuario() {
+      resultado.style.display = 'none';
+      resultado.innerHTML = '';
+      erro.textContent = '';
+
+      let id = campoId.value;
+
+      if (id < 1 || id > 10) {
+        erro.textContent = 'Digite um ID entre 1 e 10.';
+        return;
+      }
+
+      let resposta = await fetch('https://jsonplaceholder.typicode.com/users/' + id);
+
+      if (resposta.status === 200) {
+        let usuario = await resposta.json();
+
+        let endereco = usuario.address;
+        let enderecoCompleto = endereco.street + ', ' + endereco.suite + ', ' + endereco.city + ' - CEP: ' + endereco.zipcode;
+
+        resultado.innerHTML =
+          '<strong>Nome:</strong> ' + usuario.name + '<br>' +
+          '<strong>Email:</strong> ' + usuario.email + '<br>' +
+          '<strong>Endereço:</strong> ' + enderecoCompleto;
+
+        resultado.style.display = 'block';
+      } else {
+        erro.textContent = 'Usuário não encontrado ou erro na requisição.';
+      }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Buscar Usuário GitHub</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #eaecef;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px;
+      color: #333;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    input {
+      padding: 10px;
+      width: 300px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #0366d6;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #024a9c;
+    }
+
+    .resultado {
+      margin-top: 30px;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      width: 350px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-align: left;
+    }
+
+    .erro {
+      margin-top: 20px;
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Buscar Usuário do GitHub</h1>
+  <input type="text" id="username" placeholder="Digite o nome do usuário GitHub" />
+  <button id="buscarBtn">Buscar</button>
+
+  <div id="resultado" class="resultado" style="display:none;"></div>
+  <div id="erro" class="erro"></div>
+
+  <script>
+    let botao = document.getElementById('buscarBtn');
+    let campo = document.getElementById('username');
+    let resultado = document.getElementById('resultado');
+    let erro = document.getElementById('erro');
+
+    botao.addEventListener('click', buscarUsuario);
+
+    function buscarUsuario() {
+      resultado.style.display = 'none';
+      resultado.innerHTML = '';
+      erro.textContent = '';
+
+      let usuario = campo.value.trim();
+
+      if (usuario === '') {
+        erro.textContent = 'Por favor, digite um nome de usuário.';
+        return;
+      }
+
+      fetch('https://api.github.com/users/' + usuario)
+        .then(function (resposta) {
+          if (resposta.ok) {
+            return resposta.json();
+          } else {
+            throw new Error('Usuário não encontrado.');
+          }
+        })
+        .then(function (dados) {
+          resultado.innerHTML =
+            '<strong>Nome:</strong> ' + (dados.name || 'Sem nome') + '<br>' +
+            '<strong>Login:</strong> ' + dados.login + '<br>' +
+            '<strong>Repositórios públicos:</strong> ' + dados.public_repos + '<br>' +
+            '<strong>Perfil:</strong> <a href=' + dados.html_url + "' target='_blank'>" + dados.html_url + '</a>';
+          resultado.style.display = "block";
+        })
+        .catch(function (erroFetch) {
+          erro.textContent = 'Erro: ' + erroFetch.message;
+        });
+    }
+</script>
+</body>
+</html>
