@@ -1,0 +1,87 @@
+:root {
+      --color-white: #fff;
+      --color-gray: #5e5e5e;
+      --color-gray2: #EEEEEE;
+    }
+
+    body {
+      all: unset;
+      font-family: Arial, Helvetica, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      background-color: var(--color-white);
+      padding: 2rem;
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: var(--color-gray);
+      border-radius: 1rem;
+      padding: 2rem 3rem;
+      color: var(--color-white);
+      width: 100%;
+      max-width: 600px;
+    }
+
+    input {
+      background-color: transparent;
+      border: none;
+      outline: none;
+      color: var(--color-white);
+      font-size: 1rem;
+      padding: .5rem;
+      border-bottom: 1px solid var(--color-white);
+      width: 100%;
+    }
+
+    input::placeholder {
+      color: var(--color-white);
+    }
+
+    #sugestoes {
+      width: 100%;
+      background: #ffffff;
+      color: #000;
+      border-radius: 0 0 0.5rem 0.5rem;
+      margin-top: -1px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    #sugestoes div {
+      padding: .5rem;
+      cursor: pointer;
+      border-bottom: 1px solid #ccc;
+    }
+
+    #sugestoes div:hover {
+      background-color: #eee;
+    }
+
+    #detalhes {
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    #detalhes img {
+      width: 250px;
+      border-radius: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    #detalhes h3 {
+      margin: 0.5rem 0;
+    }
+
+    #detalhes p {
+      margin: 0.25rem 0;
+    }
+
+    .erro {
+      color: red;
+      margin-top: 1rem;
+    }
