@@ -48,8 +48,6 @@ let contatos = [];
 
     const btnEditar = document.createElement('button');
     btnEditar.textContent = 'Editar';
-    btnEditar.style.marginRight = '10px';
-    btnEditar.style.backgroundColor = '#ffc107';
     btnEditar.onclick = function () {
       document.getElementById('nome').value = contato.nome;
       document.getElementById('numero').value = contato.numero;
