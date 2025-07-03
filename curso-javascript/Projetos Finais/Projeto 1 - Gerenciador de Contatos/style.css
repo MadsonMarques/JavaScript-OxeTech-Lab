@@ -36,7 +36,7 @@
     }
 
     .content input {
-      background-color: transparent;
+      background-color: var(--color-gray2);
       border: none;
       outline: none;
       color: var(--color-white);
@@ -68,7 +68,7 @@
     }
 
     .content button:hover {
-      background-color: var(--color-gray);
+      background-color: var(--color-gray2);
     }
 
     .contato {
@@ -97,11 +97,4 @@
       border-radius: 0.5rem;
     }
 
-    .edit {
-      background-color: var(--color-white);
-      color: var(--color-black);
-      }
-
-    .remove {
-      background-color: var(--color-white);
-    }
+    
